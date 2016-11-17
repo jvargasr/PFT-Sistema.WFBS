@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,7 +51,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Area.cs" />
+    <Compile Include="Competencia.cs" />
+    <Compile Include="Habilidades.cs" />
+    <Compile Include="PerfilesdeCargo.cs" />
+    <Compile Include="Periodo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteGrupal.cs" />
+    <Compile Include="Usuario.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WFBS.Business.Core\WFBS.Business.Core.csproj">
+      <Project>{cab796d7-7b64-4ccf-9b31-7a257892eab5}</Project>
+      <Name>WFBS.Business.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
