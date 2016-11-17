@@ -1,0 +1,47 @@
+﻿<Page x:Class="MasterPages.Page.MantenedorCompetencias"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:m="clr-namespace:MasterPages.Master"
+    Title="MantenedorCompetencias" Background="#2E5E79">
+    <m:Master>
+        <m:Master.UserInfo>
+            <Label Foreground="White" Name="lblUserInfo"></Label>
+        </m:Master.UserInfo>
+        <m:Master.Title>
+            Listado de Competencias disponibles en la Base de Datos
+        </m:Master.Title>
+        <m:Master.Content>
+            <StackPanel HorizontalAlignment="Center">
+                <Label>Para crear una nueva competencia de clic en:</Label>
+                <Button Width="210" Name="btnAgregarCompetencia" Click="btnAgregarCompetencia_Click" HorizontalAlignment="Left">Agregar Competencia</Button>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1000" />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="dgCompetencias" HorizontalAlignment="Left" 
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          VerticalAlignment="Top" Loaded="dgCompetencias_Loaded" 
+                          CanUserAddRows="False" IsReadOnly="True" 
+                          SelectedItem="{Binding Path=SelectedCustomer, Mode=TwoWay}"
+                          SelectionMode="Single">
+                    </DataGrid>
+                </Grid>
+                <WrapPanel Orientation="Horizontal">
+                    <Label>Para Modificar o Desactivar la competencia seleccionada de clic en:</Label>
+                    <Button  Name="btnModificarCompetencia" Click="btnModificarCompetencia_Click">Modificar</Button>
+                    <Button  Name="btnEliminarCompetencia" Click="btnEliminarCompetencia_Click">Desactivar</Button>
+                    <Label>Si desea ver que habilidades posee la competencia seleccionada de clic en:</Label>
+                    <Button  Name="btnMantenerHabilidad" Click="btnMantenerHabilidad_Click">Habilidades por Competencia</Button>
+                </WrapPanel>
+                <WrapPanel Orientation="Vertical">
+                    <Button  Name="btnVolver" Click="btnVolver_Click">Volver a Inicio</Button>
+                </WrapPanel>
+            </StackPanel>
+        </m:Master.Content>
+    </m:Master>
+</Page>

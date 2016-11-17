@@ -1,0 +1,50 @@
+﻿<Page x:Class="MasterPages.Page.MantenedorPerfilesdeCargo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:m="clr-namespace:MasterPages.Master"
+    Title="MantenedorPerfilesdeCargo" Background="#2E5E79">
+    <m:Master>
+        <m:Master.UserInfo>
+            <Label Foreground="White" Name="lblUserInfo"></Label>
+        </m:Master.UserInfo>
+        <m:Master.Title>
+            Listado de Perfiles de Cargo disponibles en la Base de Datos
+        </m:Master.Title>
+        <m:Master.Content>
+            <StackPanel HorizontalAlignment="Center" >
+                <Label>Para crear un nuevo perfil de clic en:</Label>
+                <Button Name="btnAgregarPerfildeCargo" Click="btnAgregaPerfildeCargo_Click" HorizontalAlignment="Left">Agregar Perfil</Button>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1000" />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="dgPerfildeCargo" HorizontalAlignment="Left" 
+                          VerticalAlignment="Top" Loaded="dgPerfildeCargo_Loaded" 
+                          CanUserAddRows="False" IsReadOnly="True" 
+                          SelectedItem="{Binding Path=SelectedCustomer, Mode=TwoWay}"
+                          SelectionMode="Single"
+                          AutoGenerateColumns="True"
+                          AutoGeneratingColumn="dgPerfildeCargo_AutoGeneratingColumn"
+                          ScrollViewer.CanContentScroll="True" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              Width="600">
+                    </DataGrid>
+                </Grid>
+                <Label>Si desea Modificar o Desactivar el perfil seleccionado de clic en:</Label>
+                <WrapPanel Orientation="Horizontal">
+                    <Button  Name="btnModificarPerfildeCargo" Click="btnModificarPerfildeCargo_Click">Modificar Perfil</Button>
+                    <Button  Name="btnEliminarPerfildeCargo" Click="btnEliminarPerfildeCargo_Click">Desactivar Perfil</Button>
+                </WrapPanel>
+                <WrapPanel Orientation="Vertical">
+                    <Button  Name="btnVolver" Click="btnVolver_Click">Volver a Inicio</Button>
+                </WrapPanel>
+            </StackPanel>
+
+        </m:Master.Content>
+    </m:Master>
+</Page>
+

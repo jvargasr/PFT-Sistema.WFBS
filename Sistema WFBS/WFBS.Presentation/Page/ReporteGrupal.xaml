@@ -1,0 +1,53 @@
+﻿<Page x:Class="MasterPages.Page.ReporteGrupal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:m="clr-namespace:MasterPages.Master"
+    Title="ReporteGrupal" Background="#2E5E79">
+    <m:Master>
+        <m:Master.UserInfo>
+            <Label Foreground="White" Name="lblUserInfo"></Label>
+        </m:Master.UserInfo>
+        <m:Master.Title>
+            Listado Evaluaciones de todos los funcionarios, agrupados por perfiles de cargo
+        </m:Master.Title>
+        <m:Master.Content>
+
+            <StackPanel HorizontalAlignment="Center" >
+                <TabControl x:Name="TabControl1" Margin="0" SelectionChanged="myTab_SelectionChanged" Height="50">
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Header" Value="{Binding Id_PC}" />
+                            <Setter Property="Content" Value="{Binding descripcion}" />
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                </TabControl>
+                <Grid Name="MainGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1000" />
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dgEvaluaciones" HorizontalAlignment="Left" 
+                          VerticalAlignment="Top"
+                          CanUserAddRows="False" IsReadOnly="True" 
+                          SelectedItem="{Binding Path=SelectedCustomer, Mode=TwoWay}"
+                          AutoGenerateColumns="True"
+                          ScrollViewer.CanContentScroll="True" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              Width="550">
+                    </DataGrid>
+                </Grid>
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Name="btnDecargar" Click="btnDescargar_Click">Descargar Excel</Button>
+                    <Button  Name="btnBajoNivel" Click="btnBajoNivel_Click">Filtrar listado Bajo el nivel esperado</Button>
+                    <Button  Name="btnTodas" Click="btnTodas_Click">Ver todas</Button>
+                    <Button  Name="btnVolver" Click="btnVolver_Click" HorizontalAlignment="Left">Volver a Inicio</Button>
+                </WrapPanel>
+            </StackPanel>
+
+        </m:Master.Content>
+    </m:Master>
+</Page>

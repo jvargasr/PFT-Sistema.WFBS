@@ -1,0 +1,36 @@
+﻿<Page x:Class="MasterPages.Page.MantenedorPeriodoEvaluacion"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:m="clr-namespace:MasterPages.Master"
+      Title="MantenedorPeriodoEvaluacion" Background="#2E5E79">
+    <m:Master>
+        <m:Master.UserInfo>
+            <Label Foreground="White" Name="lblUserInfo"></Label>
+        </m:Master.UserInfo>
+        <m:Master.Title>
+            Listado de Periodos de Evaluación disponibles en la Base de Datos
+        </m:Master.Title>
+        <m:Master.Content>
+            <StackPanel HorizontalAlignment="Center">
+                <Label>Para crear un nuevo periodo de clic en:</Label>
+                <Button Name="btnAgregarPeriodo" Click="btnAgregarPeriodo_Click" HorizontalAlignment="Left">Agregar Periodo</Button>
+                <DataGrid x:Name="dgPeriodo" HorizontalAlignment="Left" 
+                          VerticalAlignment="Top" Loaded="dgPeriodo_Loaded" 
+                          CanUserAddRows="False" IsReadOnly="True" 
+                          SelectedItem="{Binding Path=SelectedCustomer, Mode=TwoWay}"
+                          SelectionMode="Single" 
+                          AutoGenerateColumns="True"
+                          AutoGeneratingColumn="dgPeriodo_AutoGeneratingColumn">
+                </DataGrid>
+                <Label>Si desea Modificar o Desactivar el periodo seleccionado de clic en:</Label>
+                <WrapPanel Orientation="Horizontal">
+                    <Button  Name="btnModificarPeriodo" Click="btnModificarPeriodo_Click">Modificar</Button>
+                    <Button  Name="btnEliminarPeriodo" Click="btnEliminarPeriodo_Click">Desactivar</Button>
+                </WrapPanel>
+                <WrapPanel Orientation="Vertical">
+                    <Button  Name="btnVolver" Click="btnVolver_Click">Volver a Inicio</Button>
+                </WrapPanel>
+            </StackPanel>
+        </m:Master.Content>
+    </m:Master>
+</Page>

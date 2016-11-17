@@ -1,0 +1,97 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:usuario="clr-namespace:Controlador;assembly=Controlador"
+    xmlns:local="clr-namespace:MasterPages.Master">
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/Style/Master.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type local:Master}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Master}">
+                    <StackPanel>
+                        <Grid Height="70">
+                            <Grid Margin="10">
+                                <Grid x:Name="header" Background="#204562">
+                                    <Image Source="Images/logo2.png" HorizontalAlignment="Left" />
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                                        <Label x:Name="lblUserInfo" HorizontalAlignment="Right" VerticalAlignment="Top"  FontWeight="Bold" Foreground="Aqua">
+                                            <ContentPresenter Content="{Binding Path=UserInfo, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </Label>
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White">(<Hyperlink NavigateUri="/WFBS.Presentation;component/Page/Page1.xaml">Cerrar Sesion</Hyperlink>)</TextBlock>
+                                    </WrapPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <StackPanel Margin="10">
+                            <Grid>
+                                <DockPanel x:Name="dockPanel1">
+                                    <StackPanel DockPanel.Dock="Left" Background="#D1DEE4" Width="200">
+                                        <TextBlock>
+                                        <Hyperlink NavigateUri="/WFBS.Presentation;component/Page/Page2.xaml">Inicio</Hyperlink>
+                                        </TextBlock>
+                                        <!--<Expander Header="Inicio"></Expander>-->
+                                        <Expander Header="Crear perfil de cargo">
+                                            <StackPanel>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/MantenedorPerfilesdeCargo.xaml">Ver Perfiles</Hyperlink></TextBlock>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/IngresarPerfildeCargo.xaml">Ingresar Perfil de Cargo</Hyperlink></TextBlock>
+                                            </StackPanel>
+                                        </Expander>
+                                        <Expander Header="Mantenedores">
+                                            <StackPanel>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/MantenedorUsuarios.xaml">Usuarios</Hyperlink></TextBlock>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/MantenedorArea.xaml">Areas</Hyperlink></TextBlock>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/MantenedorCompetencias.xaml">Competencias</Hyperlink></TextBlock>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/MantenedorPeriodoEvaluacion.xaml">Periodos</Hyperlink></TextBlock>
+                                            </StackPanel>
+                                        </Expander>
+                                        <Expander Header="Reportes">
+                                            <StackPanel>
+                                                <TextBlock><Hyperlink NavigateUri="/WFBS.Presentation;component/Page/ReporteGrupal.xaml">Resultados de grupo</Hyperlink></TextBlock>
+
+                                            </StackPanel>
+                                        </Expander>
+                                    </StackPanel>
+                                    <Grid>
+                                        <Grid Background="White" Width="1000" Height="400" HorizontalAlignment="left" VerticalAlignment="Center" Margin="20,0,0,0" >
+                                            <Grid HorizontalAlignment="Left" Height="469" Margin="0,6,0,0" VerticalAlignment="Top" Width="700">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="13*"/>
+                                                    <ColumnDefinition Width="489*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!--Ancho datagrid listado en mantenedores-->
+                                                <Label x:Name="label1" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="600" Grid.ColumnSpan="2">
+                                                    <ContentPresenter Content="{TemplateBinding Content}" Margin="10" />
+                                                </Label>
+                                            </Grid>
+                                            <Grid HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="800" Margin="0,0,0,0" Background="#d1dee4"/>
+                                            <Label x:Name="label4" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="700" FontWeight="Bold" Foreground="#1B548D" FontSize="10">
+                                                <ContentPresenter Content="{TemplateBinding Title}" Style="{StaticResource Title}"/>
+                                            </Label>
+                                        </Grid>
+                                        <!--
+                                        <Grid x:Name="ctt" Background="#FFFFFF" HorizontalAlignment="Center">
+                                            
+                                        </Grid>
+                                        <Grid x:Name="ctt2" Background="#FFFFFF" HorizontalAlignment="Center">
+                                            <ContentPresenter Content="{TemplateBinding Content}" Margin="10" />
+                                        </Grid> -->
+                                    </Grid>
+                                </DockPanel>
+                            </Grid>
+
+                            <Grid x:Name="footer" Background="#204562">
+                                <ContentPresenter Content="{TemplateBinding Footer}" Style="{StaticResource Footer}" HorizontalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,50 @@
+﻿<Page x:Class="MasterPages.Page.ModificarArea"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:m="clr-namespace:MasterPages.Master"
+      Title="ModificarArea" Background="#2E5E79">
+    <m:Master>
+        <m:Master.UserInfo>
+            <Label Foreground="White" Name="lblUserInfo"></Label>
+        </m:Master.UserInfo>
+        <m:Master.Title>
+            Modificar Área
+        </m:Master.Title>
+        <m:Master.Content>
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="300" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Id Area:"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Nombre:"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Abreviación:"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Obsoleta:" />
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Name="txtIdArea"  IsEnabled="False" IsReadOnly="True"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Name="txtNombre"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Name="txtAbreviacion"/>
+                <GroupBox x:Name="radioButtons" Grid.Column="1" Grid.Row="3" Margin="3">
+                    <StackPanel >
+                        <RadioButton Content="No" Name="rbNo" Checked="RadioButtonChecked"/>
+                        <RadioButton Content="Si" Name="rbSi" Checked="RadioButtonChecked" />
+                    </StackPanel>
+                </GroupBox>
+                <WrapPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="4" Margin="3" HorizontalAlignment="Left">
+                    <Button Name="btnLimpiar" Click="btnLimpiar_Click" MinWidth="100" Content="Limpiar"/>
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="3" HorizontalAlignment="Right">
+                    <Button Name="btnModificar" Click="btnModificar_Click" MinWidth="100" Content="Modificar"/>
+                    <Button  Name="btnVolver" Click="btnVolver_Click">Volver</Button>
+                </WrapPanel>
+            </Grid>
+        </m:Master.Content>
+    </m:Master>
+</Page>
