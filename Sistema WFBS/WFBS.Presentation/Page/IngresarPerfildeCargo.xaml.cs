@@ -25,7 +25,6 @@ namespace MasterPages.Page
         List<Area> areas = new List<Area>();
         public IngresarPerfildeCargo()
         {
-            Logger.log("Ingreso a Ingresar perfil de cargo");
             InitializeComponent();
             lblUserInfo.Content = Global.NombreUsuario;
             areas = col.ReadAllAreas();
@@ -107,7 +106,6 @@ namespace MasterPages.Page
                     }
                     catch (Exception ex)
                     {
-                        Logger.log("No se pudo agregar el perfil de cargo: "+ex.ToString());
                         MessageBox.Show("No se pudo agregar el Perfil de Cargo!", "Alerta");
                     }
                 }
