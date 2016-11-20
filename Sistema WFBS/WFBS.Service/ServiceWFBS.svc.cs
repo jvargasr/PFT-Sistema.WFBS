@@ -169,7 +169,6 @@ namespace WFBS.Service
 
         #region Usuario
         // Usuario
-
         public bool ValidarUsuario(string xml)
         {
             try

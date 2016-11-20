@@ -103,7 +103,7 @@ namespace MasterPages.Page
                             MessageBox.Show("No se pudo agregar el Perfil de Cargo, verifique que los datos sean correctos", "Aviso");
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         MessageBox.Show("No se pudo agregar el Perfil de Cargo!", "Alerta");
                     }

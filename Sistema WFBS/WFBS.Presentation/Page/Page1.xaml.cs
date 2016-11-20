@@ -41,32 +41,40 @@ namespace MasterPages.Page
 
                 if (txtUser.Text.Length > 0 && txtPass.Password.Length > 0)
                 {
-                    string xml = us.Serializar();
-                    WFBS.Presentation.ServiceWCF.ServiceWFBSClient servicio = new WFBS.Presentation.ServiceWCF.ServiceWFBSClient();
+                    //if (validarRut())
+                    //{
+                        string xml = us.Serializar();
+                        WFBS.Presentation.ServiceWCF.ServiceWFBSClient servicio = new WFBS.Presentation.ServiceWCF.ServiceWFBSClient();
 
-                    if (servicio.ValidarUsuario(xml))
-                    {
-                        us.Read();
-                        if (servicio.Desactivado(xml))
+                        if (servicio.ValidarUsuario(xml))
                         {
-                            Global.RutUsuario = us.Rut;
-                            Global.NombreUsuario = us.Nombre;
-                            Global.AreaInvestigacion = "Por definir";
-                            Global.JefeUsuario = us.Jefe;
-                            NavigationService navService = NavigationService.GetNavigationService(this);
-                            Page2 nextPage = new Page2();
-                            navService.Navigate(nextPage);
+                            us.Read();
+                            if (servicio.Desactivado(xml))
+                            {
+                                Global.RutUsuario = us.Rut;
+                                Global.NombreUsuario = us.Nombre;
+                                Global.AreaInvestigacion = "Por definir";
+                                Global.JefeUsuario = us.Jefe;
+                                NavigationService navService = NavigationService.GetNavigationService(this);
+                                Page2 nextPage = new Page2();
+                                navService.Navigate(nextPage);
+                            }
+                            else
+                            {
+                                MessageBox.Show("La cuenta utilizada se encuentra Desactivada", "Alerta");
+                            }
+
                         }
                         else
                         {
-                            MessageBox.Show("La cuenta utilizada se encuentra Desactivada", "Alerta");
+                            MessageBox.Show("Rut o contraseña inválidos. Asegúrese de entrar con perfil de administrador al sistema", "Error!");
                         }
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("Rut o contraseña inválidos. Asegúrese de entrar con perfil de administrador al sistema", "Error!");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Debe ingresar un Rut valido", "Aviso");
+                    //}
                 }
                 else
                 {
@@ -78,6 +86,50 @@ namespace MasterPages.Page
                 MessageBox.Show("Surgieron inconvenientes al conectarse","Alerta");
             }
 
+        }
+        public bool validarRut()
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(txtUser.Text.Trim()))
+                {
+                    return false;
+                }
+                else
+                {
+                    string rut = txtUser.Text.Trim().ToUpper();
+                    rut = txtUser.Text.Trim().Replace("-", "");
+                    int salida;
+                    if (!int.TryParse(rut.Substring(0, rut.Length - 1), out salida))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        int nrut = int.Parse(rut.Substring(0, rut.Length - 1));
+                        char digitoVerfificador = char.Parse(rut.ToUpper().Substring(rut.Length - 1, 1));
+                        int m = 0, s = 1;
+                        for (; nrut != 0; nrut /= 10)
+                        {
+                            s = (s + nrut % 10 * (9 - m++ % 6)) % 11;
+                        }
+                        if (digitoVerfificador != (char)(s != 0 ? s + 47 : 75))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
