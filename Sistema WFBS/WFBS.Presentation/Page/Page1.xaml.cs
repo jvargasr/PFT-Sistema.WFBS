@@ -41,7 +41,7 @@ namespace MasterPages.Page
 
                 if (txtUser.Text.Length > 0 && txtPass.Password.Length > 0)
                 {
-                    //if (validarRut(txtUser.Text))
+                    //if (validarRut())
                     //{
                         string xml = us.Serializar();
                         WFBS.Presentation.ServiceWCF.ServiceWFBSClient servicio = new WFBS.Presentation.ServiceWCF.ServiceWFBSClient();
@@ -87,33 +87,46 @@ namespace MasterPages.Page
             }
 
         }
-        public bool validarRut(string rut)
+        public bool validarRut()
         {
 
             try
             {
-                rut = rut.ToUpper();
-                rut = rut.Replace(".", "");
-                rut = rut.Replace("-", "");
-                int rutAux = int.Parse(rut.Substring(0, rut.Length - 1));
-
-                char dv = char.Parse(rut.Substring(rut.Length - 1, 1));
-
-                int m = 0, s = 1;
-                for (; rutAux != 0; rutAux /= 10)
-                {
-                    s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
-                }
-                if (dv == (char)(s != 0 ? s + 47 : 75))
-                {
-                    return true;
-                }
-                else
+                if (string.IsNullOrEmpty(txtUser.Text.Trim()))
                 {
                     return false;
                 }
+                else
+                {
+                    string rut = txtUser.Text.Trim().ToUpper();
+                    rut = txtUser.Text.Trim().Replace("-", "");
+                    int salida;
+                    if (!int.TryParse(rut.Substring(0, rut.Length - 1), out salida))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        int nrut = int.Parse(rut.Substring(0, rut.Length - 1));
+                        char digitoVerfificador = char.Parse(rut.ToUpper().Substring(rut.Length - 1, 1));
+                        int m = 0, s = 1;
+                        for (; nrut != 0; nrut /= 10)
+                        {
+                            s = (s + nrut % 10 * (9 - m++ % 6)) % 11;
+                        }
+                        if (digitoVerfificador != (char)(s != 0 ? s + 47 : 75))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+
+                        }
+                    }
+                }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return false;
             }
