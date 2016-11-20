@@ -38,6 +38,7 @@ namespace WFBS.Business.Log
          * @param string msg 
          * @return void 
          */
+
         public static void log(string msg)
                 {
             if (msg.Length > 0)
