@@ -40,18 +40,25 @@ namespace WFBS.Business.Core
 
         public Competencia(string xml)
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Competencia));
-            StringReader read = new StringReader(xml);
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Competencia));
+                StringReader read = new StringReader(xml);
 
-            Competencia com = (Competencia)serializador.Deserialize(read);
+                Competencia com = (Competencia)serializador.Deserialize(read);
 
-            this.Id_competencia = com.Id_competencia;
-            this.Nombre = com.Nombre;
-            this.Descripcion = com.Descripcion;
-            this.Sigla = com.Sigla;
-            this.Obsoleta = com.Obsoleta;
-            this.Nivel_Optimo = com.Nivel_Optimo;
-            this.Pregunta_Asociada = com.Pregunta_Asociada;
+                this.Id_competencia = com.Id_competencia;
+                this.Nombre = com.Nombre;
+                this.Descripcion = com.Descripcion;
+                this.Sigla = com.Sigla;
+                this.Obsoleta = com.Obsoleta;
+                this.Nivel_Optimo = com.Nivel_Optimo;
+                this.Pregunta_Asociada = com.Pregunta_Asociada;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Deserializar la Competencia: " + ex.ToString());
+            }
         }
 
         //Crea una nueva instancia de WFBSentities y almacena en esta la nueva instancia de modelo competencia
@@ -77,7 +84,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar la competencia: " + ex.ToString());
+                Log.Logger.log("No se pudo Agregar la Competencia: " + ex.ToString());
                 return false;
             }
         }
@@ -110,7 +117,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo leer la competencia: " + ex.ToString());
+                Log.Logger.log("No se pudo Leer la Competencia: " + ex.ToString());
                 return false;
             }
         }
@@ -136,7 +143,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo actualizar la competencia: " + ex.ToString());
+                Log.Logger.log("No se pudo Actualizar la Competencia: " + ex.ToString());
                 return false;
             }
         }
@@ -156,18 +163,26 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo ocultar la competencia: " + ex.ToString());
+                Log.Logger.log("No se pudo Desactivar la Competencia: " + ex.ToString());
                 return false;
             }
         }
 
         public string Serializar()
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Competencia));
-            StringWriter writer = new StringWriter();
-            serializador.Serialize(writer, this);
-            writer.Close();
-            return writer.ToString();
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Competencia));
+                StringWriter writer = new StringWriter();
+                serializador.Serialize(writer, this);
+                writer.Close();
+                return writer.ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Serializar la Competencia: " + ex.ToString());
+                return null;
+            }
         }
     }
 }

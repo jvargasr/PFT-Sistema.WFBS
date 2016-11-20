@@ -25,7 +25,6 @@ namespace MasterPages.Page
         List<Area> areas = new List<Area>();
         public IngresarPerfildeCargo()
         {
-            Logger.log("Ingreso a Ingresar perfil de cargo");
             InitializeComponent();
             lblUserInfo.Content = Global.NombreUsuario;
             areas = col.ReadAllAreas();
@@ -95,7 +94,6 @@ namespace MasterPages.Page
                         if (pc.Create(areasSelec))
                         {
                             MessageBox.Show("Agregado correctamente", "Éxito!");
-                                Logger.log("Perfil de cargo ingresado");
                                 NavigationService navService = NavigationService.GetNavigationService(this);
                                 MantenedorPerfilesdeCargo nextPage = new MantenedorPerfilesdeCargo();
                                 navService.Navigate(nextPage);
@@ -105,9 +103,8 @@ namespace MasterPages.Page
                             MessageBox.Show("No se pudo agregar el Perfil de Cargo, verifique que los datos sean correctos", "Aviso");
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        Logger.log("No se pudo agregar el perfil de cargo: "+ex.ToString());
                         MessageBox.Show("No se pudo agregar el Perfil de Cargo!", "Alerta");
                     }
                 }

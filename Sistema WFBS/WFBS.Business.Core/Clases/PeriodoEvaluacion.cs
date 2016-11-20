@@ -34,16 +34,23 @@ namespace WFBS.Business.Core
 
         public PeriodoEvaluacion(string xml)
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(PeriodoEvaluacion));
-            StringReader read = new StringReader(xml);
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(PeriodoEvaluacion));
+                StringReader read = new StringReader(xml);
 
-            PeriodoEvaluacion pe = (PeriodoEvaluacion)serializador.Deserialize(read);
+                PeriodoEvaluacion pe = (PeriodoEvaluacion)serializador.Deserialize(read);
 
-            this.idPeriodo = pe.idPeriodo;
-            this.fechaInicio = pe.fechaInicio;
-            this.vigencia = pe.vigencia;
-            this.porcentajeE = pe.porcentajeE;
-            this.porcentajeAE = pe.porcentajeAE;
+                this.idPeriodo = pe.idPeriodo;
+                this.fechaInicio = pe.fechaInicio;
+                this.vigencia = pe.vigencia;
+                this.porcentajeE = pe.porcentajeE;
+                this.porcentajeAE = pe.porcentajeAE;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Deserializar el Periodo de Evaluación: " + ex.ToString());
+            }
         }
 
         public bool Create()
@@ -66,7 +73,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar el periodo de evaluación: " + ex.ToString());
+                Log.Logger.log("No se pudo Agregar el Periodo de Evaluación: " + ex.ToString());
                 return false;
             }
         }
@@ -89,7 +96,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo leer el periodo de evaluación: " + ex.ToString());
+                Log.Logger.log("No se pudo Leer el Periodo de Evaluación: " + ex.ToString());
                 return false;
             }
         }
@@ -113,7 +120,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo actualizar el periodo de evaluación: " + ex.ToString());
+                Log.Logger.log("No se pudo Actualizar el Periodo de Evaluación: " + ex.ToString());
                 return false;
             }
         }
@@ -133,18 +140,26 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo desactivar el periodo de evaluación: " + ex.ToString());
+                Log.Logger.log("No se pudo Desactivar el Periodo de Evaluación: " + ex.ToString());
                 return false;
             }
         }
 
         public string Serializar()
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(PeriodoEvaluacion));
-            StringWriter writer = new StringWriter();
-            serializador.Serialize(writer, this);
-            writer.Close();
-            return writer.ToString();
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(PeriodoEvaluacion));
+                StringWriter writer = new StringWriter();
+                serializador.Serialize(writer, this);
+                writer.Close();
+                return writer.ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Serializar el Periodo de Evaluación: " + ex.ToString());
+                return null;
+            }
         }
     }
 }

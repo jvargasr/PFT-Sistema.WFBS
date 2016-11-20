@@ -5,12 +5,13 @@ namespace WFBS.Business.Log
 {
     public class Logger
     {
+
         /** 
          * Log file path 
          *  
          * @var string 
          */
-        private static string __log_file_path;
+        private static string __log_file_path = @"c:\log.txt";
 
         /** 
          * __log_file_path get/set 

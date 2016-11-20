@@ -32,15 +32,22 @@ namespace WFBS.Business.Core
 
         public PerfilesdeCargo(string xml)
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(PerfilesdeCargo));
-            StringReader read = new StringReader(xml);
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(PerfilesdeCargo));
+                StringReader read = new StringReader(xml);
 
-            PerfilesdeCargo pc = (PerfilesdeCargo)serializador.Deserialize(read);
+                PerfilesdeCargo pc = (PerfilesdeCargo)serializador.Deserialize(read);
 
-            this.id_perfil_de_cargo = Convert.ToInt32(pc.Id_PC);
-            this.descripcion = pc.descripcion;
-            this.Obsoleto = pc.Obsoleto;
-            this.id_areas = pc.id_areas;
+                this.id_perfil_de_cargo = Convert.ToInt32(pc.Id_PC);
+                this.descripcion = pc.descripcion;
+                this.Obsoleto = pc.Obsoleto;
+                this.id_areas = pc.id_areas;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Deserializar el Perfil de Cargo: " + ex.ToString());
+            }
         }
 
         public bool Create(List<Area> areasSelec)
@@ -66,7 +73,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar el perfil de cargo: " + ex.ToString());
+                Log.Logger.log("No se pudo Agregar el Perfil de Cargo: " + ex.ToString());
                 return false;
             }
         }
@@ -87,7 +94,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo leer el perfil de cargo: " + ex.ToString());
+                Log.Logger.log("No se pudo Leer el Perfil de Cargo: " + ex.ToString());
                 return false;
             }
         }
@@ -112,7 +119,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo actualizar el perfil de cargo: " + ex.ToString());
+                Log.Logger.log("No se pudo Actualizar el Perfil de Cargo: " + ex.ToString());
                 return false;
             }
         }
@@ -130,18 +137,26 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo desactivar el perfil de cargo: " + ex.ToString());
+                Log.Logger.log("No se pudo Desactivar el Perfil de Cargo: " + ex.ToString());
                 return false;
             }
         }
 
         public string Serializar()
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(PerfilesdeCargo));
-            StringWriter writer = new StringWriter();
-            serializador.Serialize(writer, this);
-            writer.Close();
-            return writer.ToString();
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(PerfilesdeCargo));
+                StringWriter writer = new StringWriter();
+                serializador.Serialize(writer, this);
+                writer.Close();
+                return writer.ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Serializar el Perfil de Cargo: " + ex.ToString());
+                return null;
+            }
         }
     }
 }

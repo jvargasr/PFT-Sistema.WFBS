@@ -22,7 +22,6 @@ namespace MasterPages.Page
     {
         public MantenedorPerfilesdeCargo()
         {
-            Logger.log("Se ingresa al mantenedor de Perfiles de cargo");
             InitializeComponent();
             lblUserInfo.Content = Global.NombreUsuario;
         }
