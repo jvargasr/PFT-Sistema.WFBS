@@ -63,10 +63,13 @@
     <Compile Include="CommonBC.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="ICrud.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WFBS.Business.Log\WFBS.Business.Log.csproj">
+      <Project>{3f7ea9fd-e767-4db3-92dc-e5809b4a4183}</Project>
+      <Name>WFBS.Business.Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WFBS.DAL\WFBS.DAL.csproj">
       <Project>{e9849eae-f230-4dca-9322-8c59f572d43b}</Project>
       <Name>WFBS.DAL</Name>

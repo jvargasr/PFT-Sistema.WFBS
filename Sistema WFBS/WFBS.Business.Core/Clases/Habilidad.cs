@@ -36,16 +36,23 @@ namespace WFBS.Business.Core
 
         public Habilidad(string xml)
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Habilidad));
-            StringReader read = new StringReader(xml);
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Habilidad));
+                StringReader read = new StringReader(xml);
 
-            Habilidad hab = (Habilidad)serializador.Deserialize(read);
+                Habilidad hab = (Habilidad)serializador.Deserialize(read);
 
-            this.Id_Habilidad = hab.Id_Habilidad;
-            this.Id_Competencia = hab.Id_Competencia;
-            this.Nombre = hab.Nombre;
-            this.Orden_Asignado = hab.Orden_Asignado;
-            this.Alternativa_Pregunta = hab.Alternativa_Pregunta;
+                this.Id_Habilidad = hab.Id_Habilidad;
+                this.Id_Competencia = hab.Id_Competencia;
+                this.Nombre = hab.Nombre;
+                this.Orden_Asignado = hab.Orden_Asignado;
+                this.Alternativa_Pregunta = hab.Alternativa_Pregunta;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Deserializar la Habilidad: " + ex.ToString());
+            }
         }
 
         //Crea una nueva instancia de WFBSentities y almacena en esta la nueva instancia de modelo habilidad
@@ -68,7 +75,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar la habilidad: " + ex.ToString());
+                Log.Logger.log("No se pudo Agregar la Habilidad: " + ex.ToString());
                 return false;
             }
 
@@ -92,7 +99,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar la habilidad: " + ex.ToString());
+                Log.Logger.log("No se pudo Leer la Habilidad: " + ex.ToString());
                 return false;
             }
         }
@@ -116,7 +123,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar la habilidad: " + ex.ToString());
+                Log.Logger.log("No se pudo Actualizar la Habilidad: " + ex.ToString());
                 return false;
             }
         }
@@ -135,18 +142,26 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar la habilidad: " + ex.ToString());
+                Log.Logger.log("No se pudo Eliminar la Habilidad: " + ex.ToString());
                 return false;
             }
         }
 
         public string Serializar()
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Habilidad));
-            StringWriter writer = new StringWriter();
-            serializador.Serialize(writer, this);
-            writer.Close();
-            return writer.ToString();
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Habilidad));
+                StringWriter writer = new StringWriter();
+                serializador.Serialize(writer, this);
+                writer.Close();
+                return writer.ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Serializar la Habilidad: " + ex.ToString());
+                return null;
+            }
         }
     }
 }

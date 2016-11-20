@@ -27,7 +27,6 @@ namespace MasterPages.Page
         public ReporteGrupal()
         {
             Collections col = new Collections();
-            Logger.log("Se ingresa a reporte grupal");
             InitializeComponent();
 
             btnTodas.Visibility = Visibility.Hidden;

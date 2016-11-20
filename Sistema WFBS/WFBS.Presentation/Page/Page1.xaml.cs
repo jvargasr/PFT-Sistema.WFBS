@@ -26,7 +26,6 @@ namespace MasterPages.Page
         public Page1()
         {
             InitializeComponent();
-            Logger.filePath = @"c:\log.txt";
             
         }
 
@@ -54,7 +53,6 @@ namespace MasterPages.Page
                             Global.NombreUsuario = us.Nombre;
                             Global.AreaInvestigacion = "Por definir";
                             Global.JefeUsuario = us.Jefe;
-                            Logger.log("Inicio de sesión exitoso");
                             NavigationService navService = NavigationService.GetNavigationService(this);
                             Page2 nextPage = new Page2();
                             navService.Navigate(nextPage);
@@ -67,19 +65,16 @@ namespace MasterPages.Page
                     }
                     else
                     {
-                        MessageBox.Show("Rut o contraseña inválidos. Asegúrese de entrar con perfil de administrador al sistema.", "Error!");
-                        Logger.log("Login fallido por datos invalidos");
+                        MessageBox.Show("Rut o contraseña inválidos. Asegúrese de entrar con perfil de administrador al sistema", "Error!");
                     }
                 }
                 else
                 {
-                    Logger.log("Login fallido por falta de datos");
                     MessageBox.Show("Debe ingresar su RUT y contraseña", "Alerta");
                 }
             }
             catch (Exception)
             {
-                Logger.log("Error Login");
                 MessageBox.Show("Surgieron inconvenientes al conectarse","Alerta");
             }
 

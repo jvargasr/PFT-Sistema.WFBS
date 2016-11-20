@@ -116,60 +116,68 @@ namespace MasterPages.Page
                 {
                     if (txtNombre.Text.Length > 0 && txtRut.Text.Length > 0 && txtPassword.Password.Length > 0)
                     {
-                        if (txtPassword.Password == txtPassword2.Password)
+                        if (validarRut())
                         {
-                            us.Nombre = txtNombre.Text;
-                            us.Password = txtPassword.Password;
-                            if (cmbPerfil.SelectedIndex == 2)
-                                us.Jefe = cmbJefe.SelectedItem.ToString();
-                            else
-                                us.Jefe = "";
-                            if (rbFemenino.IsChecked == true)
-                                us.Sexo = "F";
-                            if (rbMasculino.IsChecked == true)
-                                us.Sexo = "M";
-
-                            foreach (Area a in areas)
+                            if (txtPassword.Password == txtPassword2.Password)
                             {
-                                if (a.area == (string)cmbArea.SelectedItem)
+                                us.Nombre = txtNombre.Text;
+                                us.Password = txtPassword.Password;
+                                if (cmbPerfil.SelectedIndex == 2)
+                                    us.Jefe = cmbJefe.SelectedItem.ToString();
+                                else
+                                    us.Jefe = "";
+                                if (rbFemenino.IsChecked == true)
+                                    us.Sexo = "F";
+                                if (rbMasculino.IsChecked == true)
+                                    us.Sexo = "M";
+
+                                foreach (Area a in areas)
                                 {
-                                    us.Id_Area = Convert.ToInt32(a.Id_area);
+                                    if (a.area == (string)cmbArea.SelectedItem)
+                                    {
+                                        us.Id_Area = Convert.ToInt32(a.Id_area);
+                                    }
                                 }
-                            }
-                            foreach (Perfil p in perfiles)
-                            {
-                                if (p.perfil == (string)cmbPerfil.SelectedItem)
+                                foreach (Perfil p in perfiles)
                                 {
-                                    us.Id_Perfil = p.id_pefil;
+                                    if (p.perfil == (string)cmbPerfil.SelectedItem)
+                                    {
+                                        us.Id_Perfil = p.id_pefil;
+                                    }
                                 }
-                            }
-                            if (rbNoObsoleto.IsChecked == true)
-                                us.Obsoleto = 0;
-                            if (rbSiObsoleto.IsChecked == true)
-                                us.Obsoleto = 1;
+                                if (rbNoObsoleto.IsChecked == true)
+                                    us.Obsoleto = 0;
+                                if (rbSiObsoleto.IsChecked == true)
+                                    us.Obsoleto = 1;
 
-                            string xml = us.Serializar();
-                            WFBS.Presentation.ServiceWCF.ServiceWFBSClient servicio = new WFBS.Presentation.ServiceWCF.ServiceWFBSClient();
+                                string xml = us.Serializar();
+                                WFBS.Presentation.ServiceWCF.ServiceWFBSClient servicio = new WFBS.Presentation.ServiceWCF.ServiceWFBSClient();
 
-                            if (servicio.CrearUsuario(xml))
-                            {
-                                MessageBox.Show("Agregado correctamente", "Éxito!");
-                                this.Limpiar();
-                                NavigationService navService = NavigationService.GetNavigationService(this);
-                                MantenedorUsuarios nextPage = new MantenedorUsuarios();
-                                navService.Navigate(nextPage);
+                                if (servicio.CrearUsuario(xml))
+                                {
+                                    MessageBox.Show("Agregado correctamente", "Éxito!");
+                                    this.Limpiar();
+                                    NavigationService navService = NavigationService.GetNavigationService(this);
+                                    MantenedorUsuarios nextPage = new MantenedorUsuarios();
+                                    navService.Navigate(nextPage);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se pudo agregar el Usuario, verifique que los datos sean correctos", "Aviso");
+
+                                }
+
                             }
                             else
                             {
-                                MessageBox.Show("No se pudo agregar el Usuario, verifique que los datos sean correctos", "Aviso");
-
+                                MessageBox.Show("Las contraseñas no coinciden", "Aviso");
                             }
 
                         }
                         else
                         {
-                            MessageBox.Show("Las contraseñas no coinciden", "Aviso");
-                        }
+                            MessageBox.Show("Debe ingresar un Rut valido", "Aviso");
+                        }                        
                     }
                     else
                     {
@@ -192,6 +200,51 @@ namespace MasterPages.Page
             NavigationService navService = NavigationService.GetNavigationService(this);
             MantenedorUsuarios nextPage = new MantenedorUsuarios();
             navService.Navigate(nextPage);
+        }
+
+        public bool validarRut()
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(txtRut.Text.Trim()))
+                {
+                    return false;
+                }
+                else
+                {
+                    string rut = txtRut.Text.Trim().ToUpper();
+                    rut = txtRut.Text.Trim().Replace("-", "");
+                    int salida;
+                    if (!int.TryParse(rut.Substring(0, rut.Length - 1), out salida))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        int nrut = int.Parse(rut.Substring(0, rut.Length - 1));
+                        char digitoVerfificador = char.Parse(rut.ToUpper().Substring(rut.Length - 1, 1));
+                        int m = 0, s = 1;
+                        for (; nrut != 0; nrut /= 10)
+                        {
+                            s = (s + nrut % 10 * (9 - m++ % 6)) % 11;
+                        }
+                        if (digitoVerfificador != (char)(s != 0 ? s + 47 : 75))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

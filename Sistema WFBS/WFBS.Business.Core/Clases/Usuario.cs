@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WFBS.DAL;
+using WFBS.Business.Log;
 using System.Xml.Serialization;
 using System.IO;
 
@@ -42,19 +43,26 @@ namespace WFBS.Business.Core
 
         public Usuario(string xml)
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Usuario));
-            StringReader read = new StringReader(xml);
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Usuario));
+                StringReader read = new StringReader(xml);
 
-            Usuario us = (Usuario)serializador.Deserialize(read);
+                Usuario us = (Usuario)serializador.Deserialize(read);
 
-            this.Rut = us.Rut;
-            this.Nombre = us.Nombre;
-            this.Sexo = us.Sexo;
-            this.Id_Area = us.Id_Area;
-            this.Id_Perfil = us.Id_Perfil;
-            this.Jefe = us.Jefe;
-            this.Password = us.Password;
-            this.Obsoleto = us.Obsoleto;
+                this.Rut = us.Rut;
+                this.Nombre = us.Nombre;
+                this.Sexo = us.Sexo;
+                this.Id_Area = us.Id_Area;
+                this.Id_Perfil = us.Id_Perfil;
+                this.Jefe = us.Jefe;
+                this.Password = us.Password;
+                this.Obsoleto = us.Obsoleto;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Deserializar el Usuario: " + ex.ToString());
+            }
         }
 
         public bool ValidarUsuario()
@@ -78,7 +86,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo validar el usuario: " + ex.ToString());
+                Log.Logger.log("No se pudo Validar el Usuario: " + ex.ToString());
                 return false;
             }
         }
@@ -106,7 +114,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo agregar el usuario: " + ex.ToString());
+                Log.Logger.log("No se pudo Agregar el Usuario: " + ex.ToString());
                 return false;
             }
         }
@@ -132,7 +140,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo leer el usuario: " + ex.ToString());
+                Log.Logger.log("No se pudo Leer el Usuario: " + ex.ToString());
                 return false;
             }
         }
@@ -143,6 +151,7 @@ namespace WFBS.Business.Core
             {
                 DAL.WFBSEntities user = new DAL.WFBSEntities();
                 DAL.USUARIO us = user.USUARIO.First(b => b.RUT == this.Rut);
+                Log.Logger.log("probando usuario actualizado ");
 
                 us.NOMBRE = this.Nombre;
                 us.ID_AREA = this.Id_Area;
@@ -158,7 +167,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo actualizar el usuario: " + ex.ToString());
+                Log.Logger.log("No se pudo Actualizar el Usuario: " + ex.ToString());
                 return false;
             }
         }
@@ -178,7 +187,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo desactivar el usuario: " + ex.ToString());
+                Log.Logger.log("No se pudo Desactivar el Usuario: " + ex.ToString());
                 return false;
             }
         }
@@ -199,18 +208,26 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo validar la vigencia del usuario: " + ex.ToString());
+                Log.Logger.log("No se pudo Validar la vigencia del Usuario: " + ex.ToString());
                 return false;
             }
         }
 
         public string Serializar()
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Usuario));
-            StringWriter writer = new StringWriter();
-            serializador.Serialize(writer, this);
-            writer.Close();
-            return writer.ToString();
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Usuario));
+                StringWriter writer = new StringWriter();
+                serializador.Serialize(writer, this);
+                writer.Close();
+                return writer.ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Serializar el Usuario: " + ex.ToString());
+                return null;
+            }
         }
     }
 }

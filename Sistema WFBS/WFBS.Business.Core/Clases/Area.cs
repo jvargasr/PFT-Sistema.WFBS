@@ -33,15 +33,22 @@ namespace WFBS.Business.Core
 
         public Area(string xml)
         {
-            XmlSerializer serializador = new XmlSerializer(typeof(Area));
-            StringReader read = new StringReader(xml);
+            try
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(Area));
+                StringReader read = new StringReader(xml);
 
-            Area ar = (Area)serializador.Deserialize(read);
+                Area ar = (Area)serializador.Deserialize(read);
 
-            this.id_area = ar.id_area;
-            this.area = ar.area;
-            this.abreviacion = ar.abreviacion;
-            this.obsoleta = ar.obsoleta;
+                this.id_area = ar.id_area;
+                this.area = ar.area;
+                this.abreviacion = ar.abreviacion;
+                this.obsoleta = ar.obsoleta;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.log("No se pudo Deserializar la Área: " + ex.ToString());
+            }
         }
 
         public bool Create()
@@ -62,8 +69,8 @@ namespace WFBS.Business.Core
                 return true;
             }
             catch (Exception ex)
-            {
-                Logger.log("No se pudo agregar la área: " + ex.ToString());
+            {   
+                Log.Logger.log("No se pudo Agregar la Área:" + ex.ToString());
                 return false;
             }
         }
@@ -84,7 +91,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo leer la área: " + ex.ToString());
+                Log.Logger.log("No se pudo Leer la Área:" + ex.ToString());
                 return false;
             }
         }
@@ -107,7 +114,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo actualizar la área: " + ex.ToString());
+                Log.Logger.log("No se pudo Actualizar la Área: " + ex.ToString());
                 return false;
             }
         }
@@ -127,7 +134,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                Logger.log("No se pudo desactivar la área: " + ex.ToString());
+                Log.Logger.log("No se pudo Desactivar la Área: " + ex.ToString());
                 return false;
             }
         }
@@ -144,7 +151,7 @@ namespace WFBS.Business.Core
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                Log.Logger.log("No se pudo Serializar la Área: " + ex.ToString());
                 return null;
             }
         }
