@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Area.cs" />
+    <Compile Include="Clases\Auditoria.cs" />
     <Compile Include="Clases\Competencia.cs" />
+    <Compile Include="Clases\Evaluacion.cs" />
     <Compile Include="Clases\Habilidad.cs" />
     <Compile Include="Clases\Perfil.cs" />
     <Compile Include="Clases\PerfilesdeCargo.cs" />
