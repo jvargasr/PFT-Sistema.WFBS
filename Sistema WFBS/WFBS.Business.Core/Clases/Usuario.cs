@@ -151,6 +151,7 @@ namespace WFBS.Business.Core
             {
                 DAL.WFBSEntities user = new DAL.WFBSEntities();
                 DAL.USUARIO us = user.USUARIO.First(b => b.RUT == this.Rut);
+                Log.Logger.log("probando usuario actualizado ");
 
                 us.NOMBRE = this.Nombre;
                 us.ID_AREA = this.Id_Area;
